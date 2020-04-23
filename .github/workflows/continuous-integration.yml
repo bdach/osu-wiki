@@ -21,5 +21,8 @@ jobs:
       - name: install markdownlint-cli
         run: npm install -g markdownlint-cli
 
+      - name: what's changed?
+        run: git diff HEAD^ --name-only -- *.md
+
       - name: run markdownlint on changed files
         run: git diff HEAD^ --name-only -- *.md | xargs markdownlint
