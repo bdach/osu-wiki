@@ -22,7 +22,7 @@ jobs:
         run: npm install -g markdownlint-cli
 
       - name: what's changed?
-        run: git diff ${GITHUB_SHA}^ ${GITHUB_SHA} --name-only -- *.md
+        run: git diff $GITHUB_SHA^ $GITHUB_SHA --name-only -- *.md
 
       - name: run markdownlint on changed files
-        run: git diff ${GITHUB_SHA}^ ${GITHUB_SHA} --name-only -- *.md | xargs markdownlint
+        run: git diff $GITHUB_SHA^ $GITHUB_SHA --name-only -- *.md | xargs markdownlint
