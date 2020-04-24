@@ -14,6 +14,7 @@ jobs:
         shell: bash
         run: |
           REPOSITORY="https://${{ github.actor }}:${{ github.token }}@github.com/${{ github.repository }}.git"
+          BRANCH="${GITHUB_REF/#refs\/heads\//}"
 
           git version
           git clone --filter=blob:none --no-checkout ${REPOSITORY} .
@@ -22,8 +23,8 @@ jobs:
           git sparse-checkout init
           git sparse-checkout set '**/*.md'
 
-          git -c protocol.version=2 fetch --no-tags --prune --progress --depth=2 origin ${{ github.head_ref }} ${{ github.base_ref }}
-          git checkout --progress --force -B ${{ github.head_ref }} refs/remotes/origin/${{ github.head_ref }}
+          git -c protocol.version=2 fetch --no-tags --prune --progress --depth=2 origin +${GITHUB_SHA}:refs/remotes/origin/${BRANCH}
+          git checkout --progress --force -B $BRANCH refs/remotes/origin/$BRANCH
 
       - name: setup node
         uses: actions/setup-node@v1
