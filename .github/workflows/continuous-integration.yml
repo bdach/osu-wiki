@@ -10,10 +10,22 @@ jobs:
     name: markdownlint (changed files)
     runs-on: ubuntu-latest
     steps:
-      - name: checkout latest commit
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 2  # fetch commit before merge, so we can diff
+      - name: sparse checkout
+        shell: bash
+        run: |
+          REPOSITORY="https://${{ github.actor }}:${{ github.token }}@github.com/${{ github.repository }}.git"
+          BRANCH="${GITHUB_REF/#refs\/heads\//}"
+
+          git version
+          git init ${{ github.workspace }}
+          git remote add origin https://github.com/${{ github.repository }}
+          git config --local gc.auto 0
+
+          git sparse-checkout init
+          git sparse-checkout set '**/*.md'
+
+          git -c protocol.version=2 fetch --no-tags --prune --progress --depth=2 origin +${GITHUB_SHA}:refs/remotes/origin/${BRANCH}
+          git checkout --progress --force -B $BRANCH refs/remotes/origin/$BRANCH
 
       - name: setup node
         uses: actions/setup-node@v1
