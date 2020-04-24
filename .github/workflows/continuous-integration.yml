@@ -36,4 +36,4 @@ jobs:
         run: git diff ${{ github.sha }}^ ${{ github.sha }} --name-only '*.md' || exit 0
 
       - name: run remark on changed files
-        run: git diff ${{ github.sha }}^ ${{ github.sha }} --name-only '*.md' | xargs npx remark
+        run: git diff ${{ github.sha }}^ ${{ github.sha }} --name-only '*.md' | xargs npx remark -qf
