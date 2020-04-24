@@ -21,7 +21,7 @@ jobs:
           git config --local gc.auto 0
 
           git sparse-checkout init
-          git sparse-checkout set '**/*.md' '**/.remark*' '**/.markdownlint.json' 'package-lock.json'
+          git sparse-checkout set '**/*.md' '**/.remark*' '**/*.json'
 
           git -c protocol.version=2 fetch --no-tags --prune --progress --depth=2 origin +${GITHUB_SHA}:refs/remotes/origin/${BRANCH}
           git checkout --progress --force -B $BRANCH refs/remotes/origin/$BRANCH
