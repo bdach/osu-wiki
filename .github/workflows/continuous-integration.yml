@@ -7,7 +7,7 @@ on:
 
 jobs:
   ci:
-    name: markdownlint (changed files)
+    name: remarkjs, changed files
     runs-on: ubuntu-latest
     steps:
       - name: sparse checkout
@@ -29,11 +29,13 @@ jobs:
       - name: setup node
         uses: actions/setup-node@v1
 
-      - name: install remark dependencies
-        run: npm install
+      - name: install remark
+        run: |
+          npm install
+          npm install -g remark-cli
 
       - name: what's changed?
         run: git diff ${{ github.sha }}^ ${{ github.sha }} --name-only '*.md' || exit 0
 
       - name: run remark on changed files
-        run: git diff ${{ github.sha }}^ ${{ github.sha }} --name-only '*.md' | xargs npx remark -qf
+        run: git diff ${{ github.sha }}^ ${{ github.sha }} --name-only '*.md' | xargs remark -qf
