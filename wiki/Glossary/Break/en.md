@@ -13,4 +13,5 @@ Depending on the settings, when a break is initiated, letterboxes (the black hor
 The use of break times in [osu!mania](/wiki/Game_Modes/osu!mania) maps is heavily discouraged.
 
 <!-- This is a stub -->
+
 <!-- TODO: Insert images and links -->

@@ -17,4 +17,5 @@ All unsubmitted beatmaps will have a BeatmapSetID of `-1`.
 You can use the beatmapSetID to find a beatmapset using this url: `osu.ppy.sh/beatmapsets/{BeatmapSetID}` or alternatively `osu.ppy.sh/s/{BeatmapSetID}`.
 
 <!-- This is a stub -->
+
 <!-- TODO: Insert images and links -->
