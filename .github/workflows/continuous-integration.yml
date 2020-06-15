@@ -36,6 +36,7 @@ jobs:
         run: |
           WARN_ON_SIZE=500000
           ERROR_ON_SIZE=1000000
+          EXIT=0
 
           # git diff --numstat will output -<TAB>-<TAB>$filename for blobs
           git diff --numstat ${{ github.sha }}^ ${{ github.sha }} | grep -Po "\-\t\-\t\K.+$" |
@@ -49,12 +50,14 @@ jobs:
 
                   if [[ ${filesize} -ge ${ERROR_ON_SIZE} ]]; then
                       echo "::error file=${file}::The size of the file exceeds 1MB. Compress it to optimise performance."
+                      EXIT=1
                   elif [[ ${filesize} -ge ${WARN_ON_SIZE} ]]; then
                       echo "::warning file=${file}::The size of the file exceeds 500kB. Consider compressing it to optimise performance."
                   else
                       echo "::debug::File ${file} is ok."
                   fi
               done
+          exit ${EXIT}
 
       - name: setup node
         uses: actions/setup-node@v1
