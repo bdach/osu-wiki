@@ -41,6 +41,7 @@ jobs:
           # git diff --numstat will output -<TAB>-<TAB>$filename for blobs
           while read file
           do
+              echo "Checking ${file}..."
               # git ls-tree will output:
               # (file mode) (file type) (blob hash)<TAB>(file name)
               # we're interested in the hash to pull the file's size using cat-file
